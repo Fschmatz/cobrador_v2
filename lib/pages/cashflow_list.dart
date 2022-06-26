@@ -1,12 +1,15 @@
+import 'package:cobrador_v2/pages/cashflow/new_cashflow.dart';
+import 'package:cobrador_v2/widgets/cashflow_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../classes/cashflow.dart';
+import '../db/cashflow_dao.dart';
+
 class CashflowList extends StatefulWidget {
   String type;
- 
 
-  CashflowList({Key? key, required this.type})
-      : super(key: key);
+  CashflowList({Key? key, required this.type}) : super(key: key);
 
   @override
   _CashflowListState createState() => _CashflowListState();
@@ -14,7 +17,6 @@ class CashflowList extends StatefulWidget {
 
 class _CashflowListState extends State<CashflowList>
     with TickerProviderStateMixin<CashflowList> {
-  
   List<Map<String, dynamic>> cashflowList = [];
   bool loading = true;
 
@@ -25,10 +27,17 @@ class _CashflowListState extends State<CashflowList>
   }
 
   Future<void> getCashflowList() async {
-    //var resp = await dbBug.getAllByState(widget.state);
+    final db = CashflowDao.instance;
+    var resp = await db.queryAllRows();
     setState(() {
+      cashflowList = resp;
       loading = false;
     });
+  }
+
+  Cashflow create(Map<String, dynamic> listItem) {
+    Cashflow c = Cashflow(personName: '', type: '', value: 0);
+    return c.toCashflow(listItem);
   }
 
   @override
@@ -36,29 +45,27 @@ class _CashflowListState extends State<CashflowList>
     return Scaffold(
       body: (loading)
           ? const Center(child: SizedBox.shrink())
-          : /*cashflowList.isEmpty
+          : cashflowList.isEmpty
               ? const Center(
                   child: Text(
                   "Nothing in here...\nGood!!!",
                   textAlign: TextAlign.center,
-                  style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ))
-              : */
-      ListView(
+              : ListView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   children: [
                       ListView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: 25,//cashflowList.length
+                        itemCount: cashflowList.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
-                            child: Card(
-                              child: Center(child: Text('\nHi Mark!\n')),
-                            ),
-                          );
+                          Cashflow c =
+                              Cashflow(personName: '', type: '', value: 0);
+
+                          return CashflowCard(
+                              cashflow: c.toCashflow(cashflowList[index]),
+                              refreshHome: getCashflowList);
                         },
                       ),
                       const SizedBox(
@@ -68,11 +75,14 @@ class _CashflowListState extends State<CashflowList>
       floatingActionButton: FloatingActionButton(
         heroTag: null,
         onPressed: () {
-          /*Navigator.push(
+          Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => New(),
-              ));*/
+                builder: (BuildContext context) => NewCashflow(
+                  refreshHome: getCashflowList,
+                  edit: false,
+                ),
+              ));
         },
         child: Icon(
           Icons.add_outlined,

@@ -1,19 +1,31 @@
 class Cashflow {
 
-  int id;
+  int? id;
   String personName;
   String type; // loan or debt on String
   double value;
-  DateTime date;
-  String note;
-  int paid;
+  String? date;
+  String? note;
+  int? paid;
 
   Cashflow(
-      {required this.id,
-        required this.personName,
-        required this.type,
-        required this.value,
-        required this.date,
-        required this.note,
-        required this.paid});
+      {this.id,
+      required this.personName,
+      required this.type,
+      required this.value,
+      this.date,
+      this.note,
+      this.paid});
+
+  Cashflow toCashflow(Map<String, dynamic> listItem) {
+    return Cashflow(
+        id: listItem['id'],
+        personName: listItem['personName'],
+        type: listItem['type'],
+        value: listItem['value'],
+        date: listItem['date'],
+        note: listItem['note'],
+        paid: listItem['paid']);
+  }
+
 }

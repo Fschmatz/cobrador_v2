@@ -78,8 +78,10 @@ class AppInfo extends StatelessWidget {
           ),
           const ListTile(
             leading: Icon(Icons.messenger_outline),
-            title: Text(
-              'For every minute spent organizing, an hour is earned.',
+            title: Text('''
+Learning is the only thing the mind never exhausts, never fears, and never regrets. 
+- Leonardo da Vinci   
+              '''
             ),
           ),
         ]));
