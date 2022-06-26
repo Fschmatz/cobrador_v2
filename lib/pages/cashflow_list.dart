@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class TaskList extends StatefulWidget {
-  int state;
-  int currentIdTodo;
+class CashflowList extends StatefulWidget {
+  String type;
+ 
 
-  TaskList({Key? key, required this.state, required this.currentIdTodo})
+  CashflowList({Key? key, required this.type})
       : super(key: key);
 
   @override
-  _TaskListState createState() => _TaskListState();
+  _CashflowListState createState() => _CashflowListState();
 }
 
-class _TaskListState extends State<TaskList>
-    with TickerProviderStateMixin<TaskList> {
-  List<Map<String, dynamic>> tasksList = [];
+class _CashflowListState extends State<CashflowList>
+    with TickerProviderStateMixin<CashflowList> {
+  
+  List<Map<String, dynamic>> cashflowList = [];
   bool loading = true;
 
   @override
   void initState() {
     super.initState();
+    getCashflowList();
+  }
+
+  Future<void> getCashflowList() async {
+    //var resp = await dbBug.getAllByState(widget.state);
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -27,28 +36,29 @@ class _TaskListState extends State<TaskList>
     return Scaffold(
       body: (loading)
           ? const Center(child: SizedBox.shrink())
-          : tasksList.isEmpty
+          : /*cashflowList.isEmpty
               ? const Center(
                   child: Text(
-                  "Nothing in here...\nit's good?",
+                  "Nothing in here...\nGood!!!",
                   textAlign: TextAlign.center,
                   style:
                       TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ))
-              : ListView(
+              : */
+      ListView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   children: [
-                      ListView.separated(
-                        separatorBuilder:
-                            (BuildContext context, int index) =>
-                                const SizedBox(
-                          height: 5,
-                        ),
+                      ListView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: tasksList.length,
+                        itemCount: 25,//cashflowList.length
                         itemBuilder: (context, index) {
-                          return Card();
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 2, 16, 2),
+                            child: Card(
+                              child: Center(child: Text('\nHi Mark!\n')),
+                            ),
+                          );
                         },
                       ),
                       const SizedBox(
@@ -61,7 +71,7 @@ class _TaskListState extends State<TaskList>
           /*Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => NewTask(),
+                builder: (BuildContext context) => New(),
               ));*/
         },
         child: Icon(
@@ -69,7 +79,6 @@ class _TaskListState extends State<TaskList>
           color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

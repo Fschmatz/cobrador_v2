@@ -1,7 +1,8 @@
 import 'package:animations/animations.dart';
-import 'package:cobrador_v2/pages/task_list.dart';
+import 'package:cobrador_v2/pages/cashflow_list.dart';
 import 'package:flutter/material.dart';
 import 'configs/settings.dart';
+import 'history.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,34 +14,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentTabIndex = 0;
 
-  List<Widget> _tabs = [
-    TaskList(
+  final List<Widget> _tabs = [
+    CashflowList(
     key: UniqueKey(),
-    state: 0,
-    currentIdTodo: 0,
+    type: "loan",
   ),
-    TaskList(
+    CashflowList(
       key: UniqueKey(),
-      state: 1,
-      currentIdTodo: 0,
+      type: "debt",
     ),
-    TaskList(
+    History(
       key: UniqueKey(),
-      state: 2,
-      currentIdTodo: 0,
-    ),];
-
-
-
-  @override
-  void initState() {
-    super.initState();
-    appStartFunctions();
-  }
-
-  void appStartFunctions() async {
-
-  }
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +35,24 @@ class _HomeState extends State<Home> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              title: Text('OI'),
+              title: const Text('Cobrador'),
               pinned: false,
               floating: true,
               snap: true,
+              actions: [
+                IconButton(
+                    tooltip: "Settings",
+                    icon: const Icon(
+                      Icons.settings_outlined,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const Settings(),
+                          ));
+                    }),
+              ],
             ),
           ];
         },
@@ -76,25 +76,25 @@ class _HomeState extends State<Home> {
         },
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.list_outlined),
+            icon: Icon(Icons.arrow_upward_outlined),
             selectedIcon: Icon(
-              Icons.list,
+              Icons.arrow_upward,
             ),
-            label: 'Todo',
+            label: 'Loans',
           ),
           NavigationDestination(
-            icon: Icon(Icons.construction_outlined),
+            icon: Icon(Icons.arrow_downward_outlined),
             selectedIcon: Icon(
-              Icons.construction,
+              Icons.arrow_downward,
             ),
-            label: 'Doing',
+            label: 'Debts',
           ),
           NavigationDestination(
-            icon: Icon(Icons.checklist_outlined),
+            icon: Icon(Icons.history_outlined),
             selectedIcon: Icon(
-              Icons.checklist,
+              Icons.history,
             ),
-            label: 'Done',
+            label: 'History',
           ),
         ],
       ),
