@@ -1,5 +1,6 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../util/app_details.dart';
 import '../../util/dialog_select_theme.dart';
 import '../../util/utils_functions.dart';
@@ -38,12 +39,9 @@ class _SettingsState extends State<Settings> {
             Card(
               margin: const EdgeInsets.fromLTRB(16, 20, 16, 25),
               color: Theme.of(context).colorScheme.secondary,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-              ),
               child: ListTile(
                 title: Text(
-                  AppDetails.appName + " " + AppDetails.appVersion,
+                  "${AppDetails.appName} ${AppDetails.appVersion}",
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 17.5, color: Colors.black87),
                 ),
@@ -85,11 +83,7 @@ class _SettingsState extends State<Settings> {
                 "App info",
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const AppInfo(),
-                    ));
+                Get.to(() => const AppInfo());
               },
             ),
             ListTile(
@@ -100,11 +94,7 @@ class _SettingsState extends State<Settings> {
                 "Changelog",
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const Changelog(),
-                    ));
+                Get.to(() => const Changelog());
               },
             ),
           ],

@@ -1,8 +1,7 @@
-import 'package:cobrador_v2/pages/cashflow/new_cashflow.dart';
+import 'package:cobrador_v2/pages/cashflow/new_edit_cashflow.dart';
 import 'package:cobrador_v2/widgets/cashflow_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
+import 'package:get/get.dart';
 import '../classes/cashflow.dart';
 import '../db/cashflow_dao.dart';
 
@@ -15,74 +14,68 @@ class CashflowList extends StatefulWidget {
   _CashflowListState createState() => _CashflowListState();
 }
 
-class _CashflowListState extends State<CashflowList>
-    with TickerProviderStateMixin<CashflowList> {
-  List<Map<String, dynamic>> cashflowList = [];
-  bool loading = true;
+class _CashflowListState extends State<CashflowList>{
+
+  RxList cashflowList = [].obs;
+  RxBool loading = true.obs;
 
   @override
   void initState() {
-    super.initState();
     getCashflowList();
+    super.initState();
   }
 
   Future<void> getCashflowList() async {
     final db = CashflowDao.instance;
-    var resp = await db.queryAllRows();
-    setState(() {
-      cashflowList = resp;
-      loading = false;
-    });
-  }
-
-  Cashflow create(Map<String, dynamic> listItem) {
-    Cashflow c = Cashflow(personName: '', type: '', value: 0);
-    return c.toCashflow(listItem);
+    var resp = await db.queryAllByType(widget.type);
+    cashflowList.value = resp;
+    loading.value = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (loading)
-          ? const Center(child: SizedBox.shrink())
-          : cashflowList.isEmpty
-              ? const Center(
-                  child: Text(
-                  "Nothing in here...\nGood!!!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ))
-              : ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  children: [
-                      ListView.builder(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: cashflowList.length,
-                        itemBuilder: (context, index) {
-                          Cashflow c =
-                              Cashflow(personName: '', type: '', value: 0);
+      body: Obx(() =>
+        (loading.value)
+            ? const Center(child: SizedBox.shrink())
+            : (cashflowList.isEmpty)
+                ? const Center(
+                    child: Text(
+                    "Nothing in here...\nGood!!!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ))
+                : ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    children: [
+                        ListView.builder(
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: cashflowList.length,
+                          itemBuilder: (context, index) {
+                            Cashflow cashflow =
+                                Cashflow(personName: '', type: '', value: 0);
 
-                          return CashflowCard(
-                              cashflow: c.toCashflow(cashflowList[index]),
-                              refreshHome: getCashflowList);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 100,
-                      ),
-                    ]),
+                            return CashflowCard(
+                                cashflow: cashflow.toCashflow(cashflowList[index]),
+                                refreshHome: getCashflowList);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 100,
+                        ),
+                      ]),
+      ),
       floatingActionButton: FloatingActionButton(
         heroTag: null,
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => NewCashflow(
-                  refreshHome: getCashflowList,
-                  edit: false,
-                ),
-              ));
+          Get.to(() =>
+            NewEditCashflow(
+             refreshHome: getCashflowList,
+              edit: false,
+              type: widget.type,
+            ),
+          );
         },
         child: Icon(
           Icons.add_outlined,

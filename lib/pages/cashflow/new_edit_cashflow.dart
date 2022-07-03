@@ -1,21 +1,21 @@
-import 'dart:io';
 import 'package:cobrador_v2/classes/cashflow.dart';
-import 'package:cobrador_v2/db/cashflow_controller.dart';
+import 'package:cobrador_v2/controller/cashflow_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class NewCashflow extends StatefulWidget {
+class NewEditCashflow extends StatefulWidget {
   @override
-  _NewCashflowState createState() => _NewCashflowState();
+  _NewEditCashflowState createState() => _NewEditCashflowState();
 
   bool edit;
   Function() refreshHome;
+  String? type;
 
-  NewCashflow({Key? key, required this.edit, required this.refreshHome})
+  NewEditCashflow({Key? key, required this.edit, required this.refreshHome, this.type})
       : super(key: key);
 }
 
-class _NewCashflowState extends State<NewCashflow> {
+class _NewEditCashflowState extends State<NewEditCashflow> {
   TextEditingController controllerPersonName = TextEditingController();
   TextEditingController controllerValue = TextEditingController();
   TextEditingController controllerNote = TextEditingController();
@@ -26,7 +26,7 @@ class _NewCashflowState extends State<NewCashflow> {
   Future<void> saveCashflow() async {
     save(Cashflow(
       personName: controllerPersonName.text,
-      type: 'loan',
+      type: widget.type!,
       value: double.parse(controllerValue.text),
       note: controllerNote.text,
     ));

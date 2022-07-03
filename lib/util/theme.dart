@@ -25,7 +25,7 @@ ThemeData light = ThemeData(
       backgroundColor: Color(0xFFFFFFFF),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        focusColor:  const Color(0xFF0B57D0),
+        focusColor: const Color(0xFF0B57D0),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF0B57D0),
@@ -54,8 +54,12 @@ ThemeData light = ThemeData(
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFF050505), fontWeight: FontWeight.w500))),
-    bottomSheetTheme:
-    const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFFFF)));
+    bottomSheetTheme: const BottomSheetThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        ),
+        modalBackgroundColor: Color(0xFFF0F3F8)));
 
 ThemeData dark = ThemeData(
     useMaterial3: true,
@@ -72,7 +76,7 @@ ThemeData dark = ThemeData(
       secondary: Color(0xFF6089B2),
     ),
     appBarTheme: const AppBarTheme(
-      surfaceTintColor:  Color(0xFF1F1F1F),
+      surfaceTintColor: Color(0xFF1F1F1F),
       backgroundColor: Color(0xFF1F1F1F),
     ),
     cardTheme: const CardTheme(
@@ -108,12 +112,16 @@ ThemeData dark = ThemeData(
     ),
     bottomAppBarColor: const Color(0xFF292C30),
     navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFF292C30),//0xFF202122
+        backgroundColor: const Color(0xFF292C30), //0xFF202122
         indicatorColor: const Color(0xFF014269),
         iconTheme: MaterialStateProperty.all(const IconThemeData(
           color: Color(0xFFE3E3E3),
         )),
         labelTextStyle: MaterialStateProperty.all(const TextStyle(
             color: Color(0xFFE3E3E3), fontWeight: FontWeight.w500))),
-    bottomSheetTheme:
-    const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1F1F1F)));
+    bottomSheetTheme: const BottomSheetThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        ),
+        modalBackgroundColor: Color(0xFF292C30)));

@@ -1,6 +1,8 @@
 import 'package:animations/animations.dart';
+import 'package:cobrador_v2/controller/bottom_navigation_controller.dart';
 import 'package:cobrador_v2/pages/cashflow_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'configs/settings.dart';
 import 'history.dart';
 
@@ -12,13 +14,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentTabIndex = 0;
+  BottomNavigationController bottomNavigationController =
+      Get.put(BottomNavigationController());
 
   final List<Widget> _tabs = [
     CashflowList(
-    key: UniqueKey(),
-    type: "loan",
-  ),
+      key: UniqueKey(),
+      type: "loan",
+    ),
     CashflowList(
       key: UniqueKey(),
       type: "debt",
@@ -46,57 +49,55 @@ class _HomeState extends State<Home> {
                       Icons.settings_outlined,
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => const Settings(),
-                          ));
+                      Get.to(() => const Settings());
                     }),
               ],
             ),
           ];
         },
-        body: PageTransitionSwitcher(
-          transitionBuilder: (child, animation, secondaryAnimation) =>
-              FadeThroughTransition(
-            fillColor: Theme.of(context).scaffoldBackgroundColor,
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-            child: child,
+        body: Obx(
+          () => PageTransitionSwitcher(
+            transitionBuilder: (child, animation, secondaryAnimation) =>
+                FadeThroughTransition(
+              fillColor: Theme.of(context).scaffoldBackgroundColor,
+              animation: animation,
+              secondaryAnimation: secondaryAnimation,
+              child: child,
+            ),
+            child: _tabs[bottomNavigationController.currentIndex.value],
           ),
-          child: _tabs[_currentTabIndex]             ,
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentTabIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _currentTabIndex = index;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.arrow_upward_outlined),
-            selectedIcon: Icon(
-              Icons.arrow_upward,
+      bottomNavigationBar: Obx(
+        () => NavigationBar(
+          selectedIndex: bottomNavigationController.currentIndex.value,
+          onDestinationSelected: (index) {
+            bottomNavigationController.changeIndex(index);
+          },
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.arrow_upward_outlined),
+              selectedIcon: Icon(
+                Icons.arrow_upward,
+              ),
+              label: 'Loans',
             ),
-            label: 'Loans',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.arrow_downward_outlined),
-            selectedIcon: Icon(
-              Icons.arrow_downward,
+            NavigationDestination(
+              icon: Icon(Icons.arrow_downward_outlined),
+              selectedIcon: Icon(
+                Icons.arrow_downward,
+              ),
+              label: 'Debts',
             ),
-            label: 'Debts',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.history_outlined),
-            selectedIcon: Icon(
-              Icons.history,
+            NavigationDestination(
+              icon: Icon(Icons.history_outlined),
+              selectedIcon: Icon(
+                Icons.history,
+              ),
+              label: 'History',
             ),
-            label: 'History',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
