@@ -9,6 +9,7 @@ class Cashflow {
   String? date;
   String? note;
   int? paid;
+  String? paidDate;
 
   Cashflow(
       {this.id,
@@ -17,7 +18,8 @@ class Cashflow {
       required this.value,
       this.date,
       this.note,
-      this.paid});
+      this.paid,
+      this.paidDate});
 
   Cashflow toCashflow(Map<String, dynamic> listItem) {
     return Cashflow(
@@ -27,11 +29,13 @@ class Cashflow {
         value: listItem['value'],
         date: listItem['date'],
         note: listItem['note'],
-        paid: listItem['paid']);
+        paid: listItem['paid'],
+        paidDate: listItem['paidDate'],
+    );
   }
 
   String getFormattedDataAndNote(){
-    String formattedDate = Jiffy(date).format("dd/MM/yyyy");
+    String formattedDate = Jiffy(date).format("dd MMM yyyy");
     if(note!.isEmpty){
       return formattedDate;
     } else {
@@ -39,5 +43,14 @@ class Cashflow {
     }
   }
 
+  String getFormattedNoteDataAndPaidData(){
+    String formattedCreationDate = Jiffy(date).format("dd MMM yyyy");
+    String formattedPaidDate = Jiffy(date).format("dd MMM yyyy");
+    if(note!.isEmpty){
+      return 'Created in: $formattedCreationDate\nPaid in: $formattedPaidDate';
+    } else {
+      return 'Created in: $formattedCreationDate\nPaid in: $formattedPaidDate\n$note';
+    }
+  }
+
 }
-//Jiffy(_repo.lastUpdate!).format("dd/MM/yyyy"),

@@ -26,8 +26,7 @@ class _HistoryTileState extends State<HistoryTile> {
       minLeadingWidth: 20,
       title: Text(widget.cashflow.personName),
       trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),
-      subtitle:
-          widget.cashflow.note!.isEmpty ? null : Text(widget.cashflow.note!),
+      subtitle: Text(widget.cashflow.getFormattedNoteDataAndPaidData(),)
     );
   }
 }

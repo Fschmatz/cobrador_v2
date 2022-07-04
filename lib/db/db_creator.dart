@@ -28,7 +28,8 @@ class DbCreator {
             value REAL NOT NULL,
             date TEXT NOT NULL,
             note TEXT,
-            paid INTEGER NOT NULL
+            paid INTEGER NOT NULL,
+            paidDate TEXT
           )       
           ''');
 
@@ -41,17 +42,8 @@ class DbCreator {
       'value': '1000',
       'date': '1966-01-14',
       'note': 'Higher!\nFurther!\nFaster than anyone!',
-      'paid': 0
-    });
-
-    batch.insert('cashflows', {
-      'id': 2,
-      'personName': 'Jaré',
-      'type': 'debt',
-      'value': '1',
-      'date': '2022-01-01',
-      'note': '',
-      'paid': 0
+      'paid': 0,
+      'paidDate': '',
     });
 
     await batch.commit(noResult: true);

@@ -119,7 +119,7 @@ class _CashflowCardState extends State<CashflowCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: ListTile(
         contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
         shape: const RoundedRectangleBorder(

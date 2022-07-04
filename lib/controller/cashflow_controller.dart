@@ -30,7 +30,8 @@ void payCashflow(Cashflow cashflow) async {
   final cashflows = CashflowDao.instance;
   Map<String, dynamic> row = {
     CashflowDao.columnId: cashflow.id,    
-    CashflowDao.columnPaid: 1
+    CashflowDao.columnPaid: 1,
+    CashflowDao.columnPaidDate: DateTime.now().toString(),
   };
   await cashflows.update(row);
 }

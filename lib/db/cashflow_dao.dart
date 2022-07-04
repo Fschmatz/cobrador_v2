@@ -15,6 +15,7 @@ class CashflowDao {
   static const columnDate = 'date';
   static const columnNote = 'note';
   static const columnPaid = 'paid';
+  static const columnPaidDate = 'paidDate';
 
   static Database? _database;
 
