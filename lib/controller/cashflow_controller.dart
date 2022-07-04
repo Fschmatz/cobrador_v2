@@ -14,7 +14,7 @@ Future<void> save(Cashflow cashflow) async {
   await cashflows.insert(row);
 }
 
-void updateTask(Cashflow cashflow) async {
+void update(Cashflow cashflow) async {
   final cashflows = CashflowDao.instance;
   Map<String, dynamic> row = {
     CashflowDao.columnId: cashflow.id,

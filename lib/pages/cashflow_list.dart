@@ -43,7 +43,7 @@ class _CashflowListState extends State<CashflowList>{
                     child: Text(
                     "Nothing in here...\nGood!!!",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ))
                 : ListView(
                     physics: const AlwaysScrollableScrollPhysics(),

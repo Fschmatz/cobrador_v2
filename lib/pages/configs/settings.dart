@@ -1,3 +1,4 @@
+import 'package:cobrador_v2/db/cashflow_dao.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,13 +9,17 @@ import 'app_info.dart';
 import 'changelog.dart';
 
 class Settings extends StatefulWidget {
+
+  Function()? refreshHome;
+
   @override
   _SettingsState createState() => _SettingsState();
 
-  const Settings({Key? key}) : super(key: key);
+  Settings({Key? key, this.refreshHome}) : super(key: key);
 }
 
 class _SettingsState extends State<Settings> {
+
   String getThemeStringFormatted() {
     String theme = EasyDynamicTheme.of(context)
         .themeMode
@@ -24,6 +29,39 @@ class _SettingsState extends State<Settings> {
       theme = 'system default';
     }
     return capitalizeFirstLetterString(theme);
+  }
+
+  void _clearHistory() async {
+    final db = CashflowDao.instance;
+    final delete = await db.clearHistory();
+  }
+
+  showDialogConfirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Confirm",
+          ),
+          content: const Text(
+            "Delete ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Yes",
+              ),
+              onPressed: () {
+                _clearHistory();
+                widget.refreshHome!();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -55,11 +93,7 @@ class _SettingsState extends State<Settings> {
                       color: themeColorApp)),
             ),
             ListTile(
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const DialogSelectTheme();
-                  }),
+              onTap: () => Get.dialog(const DialogSelectTheme()),
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text(
                 "App theme",
@@ -67,6 +101,13 @@ class _SettingsState extends State<Settings> {
               subtitle: Text(
                 getThemeStringFormatted(),
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_outline),
+              title: const Text("Clear history"),
+              onTap: () {
+                showDialogConfirmDelete(context);
+              },
             ),
             ListTile(
               title: Text("About",

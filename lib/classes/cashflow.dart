@@ -1,3 +1,5 @@
+import 'package:jiffy/jiffy.dart';
+
 class Cashflow {
 
   int? id;
@@ -28,4 +30,14 @@ class Cashflow {
         paid: listItem['paid']);
   }
 
+  String getFormattedDataAndNote(){
+    String formattedDate = Jiffy(date).format("dd/MM/yyyy");
+    if(note!.isEmpty){
+      return formattedDate;
+    } else {
+      return '$formattedDate\n$note';
+    }
+  }
+
 }
+//Jiffy(_repo.lastUpdate!).format("dd/MM/yyyy"),

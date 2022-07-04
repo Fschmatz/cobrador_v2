@@ -22,7 +22,7 @@ class _HistoryTileState extends State<HistoryTile> {
        (widget.cashflow.type.compareTo('loan').isEven)
           ? Icons.arrow_upward_outlined
           : Icons.arrow_downward_outlined,
-      size: 18,),
+      size: 20,),
       minLeadingWidth: 20,
       title: Text(widget.cashflow.personName),
       trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),

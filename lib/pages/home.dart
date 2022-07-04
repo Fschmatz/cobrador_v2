@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
   BottomNavigationController bottomNavigationController =
       Get.put(BottomNavigationController());
 
-  final List<Widget> _tabs = [
+  List<Widget> _tabs = [
     CashflowList(
       key: UniqueKey(),
       type: "loan",
@@ -30,6 +30,24 @@ class _HomeState extends State<Home> {
       key: UniqueKey(),
     ),
   ];
+
+  void refreshHome() {
+    setState(() {
+      _tabs = [
+        CashflowList(
+          key: UniqueKey(),
+          type: "loan",
+        ),
+        CashflowList(
+          key: UniqueKey(),
+          type: "debt",
+        ),
+        History(
+          key: UniqueKey(),
+        ),
+      ];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +67,7 @@ class _HomeState extends State<Home> {
                       Icons.settings_outlined,
                     ),
                     onPressed: () {
-                      Get.to(() => const Settings());
+                      Get.to(() => Settings(refreshHome: refreshHome));
                     }),
               ],
             ),

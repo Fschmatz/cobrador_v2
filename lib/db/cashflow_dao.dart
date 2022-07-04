@@ -70,4 +70,10 @@ class CashflowDao {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
+
+  Future<int> clearHistory() async {
+    Database db = await instance.database;
+    return await db.delete('$table WHERE $columnPaid = 1');
+  }
+
 }

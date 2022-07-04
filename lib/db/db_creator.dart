@@ -37,20 +37,20 @@ class DbCreator {
     batch.insert('cashflows', {
       'id': 1,
       'personName': 'Korolev',
-      'type': 'debt',
-      'value': '1500',
-      'date': '19/05/1990',
-      'note': 'Higher! Faster than anyone!!!',
+      'type': 'loan',
+      'value': '1000',
+      'date': '1966-01-14',
+      'note': 'Higher!\nFurther!\nFaster than anyone!',
       'paid': 0
     });
 
     batch.insert('cashflows', {
       'id': 2,
       'personName': 'Jaré',
-      'type': 'loan',
-      'value': '3500',
-      'date': '19/05/1990',
-      'note': 'sem nota',
+      'type': 'debt',
+      'value': '1',
+      'date': '2022-01-01',
+      'note': '',
       'paid': 0
     });
 

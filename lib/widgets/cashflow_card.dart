@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:cobrador_v2/classes/cashflow.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../controller/cashflow_controller.dart';
+import '../pages/cashflow/new_edit_cashflow.dart';
 
 class CashflowCard extends StatefulWidget {
   @override
@@ -28,6 +30,34 @@ class _CashflowCardState extends State<CashflowCard> {
     payCashflow(widget.cashflow);
   }
 
+  showDialogConfirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Confirm",
+          ),
+          content: const Text(
+            "Delete ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Yes",
+              ),
+              onPressed: () {
+                _delete();
+                widget.refreshHome();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
   void openBottomMenu() {
     showModalBottomSheet(
         context: context,
@@ -38,7 +68,7 @@ class _CashflowCardState extends State<CashflowCard> {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    '${widget.cashflow.personName}\n${widget.cashflow.value.toString()}',
+                    '${widget.cashflow.personName}\n\$ ${widget.cashflow.value.toStringAsFixed(2)}',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -61,14 +91,13 @@ class _CashflowCardState extends State<CashflowCard> {
                   ),
                   onTap: () {
                     Navigator.of(context).pop();
-                    /*  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => EditPlaylist(
-                            playlist: widget.playlist,
-                            refreshHome: widget.refreshHome,
-                          ),
-                        ));*/
+                    Get.to(() =>
+                        NewEditCashflow(
+                          refreshHome: widget.refreshHome,
+                          cashflow: widget.cashflow,
+                          edit: true,
+                        ),
+                    );
                   },
                 ),
                 ListTile(
@@ -77,9 +106,8 @@ class _CashflowCardState extends State<CashflowCard> {
                     "Delete",
                   ),
                   onTap: () {
-                    _delete();
-                    widget.refreshHome();
                     Navigator.of(context).pop();
+                    showDialogConfirmDelete(context);
                   },
                 ),
               ],
@@ -90,20 +118,17 @@ class _CashflowCardState extends State<CashflowCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
-      child: Card(
-        child: ListTile(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          onTap: openBottomMenu,
-          title: Text(widget.cashflow.personName),
-          trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),
-          subtitle: widget.cashflow.note!.isEmpty
-              ? null
-              : Text(widget.cashflow.note!),
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+      child: ListTile(
+        contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
+        onTap: openBottomMenu,
+        title: Text(widget.cashflow.personName),
+        trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),
+        subtitle: Text(widget.cashflow.getFormattedDataAndNote()),
       ),
     );
   }

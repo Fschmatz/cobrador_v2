@@ -10,8 +10,9 @@ class NewEditCashflow extends StatefulWidget {
   bool edit;
   Function() refreshHome;
   String? type;
+  Cashflow? cashflow;
 
-  NewEditCashflow({Key? key, required this.edit, required this.refreshHome, this.type})
+  NewEditCashflow({Key? key, required this.edit, required this.refreshHome,this.cashflow, this.type})
       : super(key: key);
 }
 
@@ -23,10 +24,30 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
   bool validPersonName = true;
   bool validValue = true;
 
+  @override
+  void initState() {
+    if(widget.edit){
+      controllerPersonName.text = widget.cashflow!.personName;
+      controllerValue.text = widget.cashflow!.value.toStringAsFixed(2);
+      controllerNote.text = widget.cashflow!.note!;
+    }
+    super.initState();
+  }
+
   Future<void> saveCashflow() async {
     save(Cashflow(
       personName: controllerPersonName.text,
       type: widget.type!,
+      value: double.parse(controllerValue.text),
+      note: controllerNote.text,
+    ));
+  }
+
+  Future<void> updateCashflow() async {
+    update(Cashflow(
+      id: widget.cashflow!.id,
+      personName: controllerPersonName.text,
+      type: widget.cashflow!.type,
       value: double.parse(controllerValue.text),
       note: controllerNote.text,
     ));
@@ -51,7 +72,7 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New'),
+        title: widget.edit ? const Text('Edit') : const Text('New'),
         actions: [
           IconButton(
             icon: const Icon(Icons.save_outlined),
@@ -59,11 +80,10 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
             onPressed: () {
               if (validateTextFields()) {
                 if (widget.edit) {
-                  //edit();
+                  updateCashflow();
                 } else {
                   saveCashflow();
                 }
-
                 widget.refreshHome();
                 Navigator.of(context).pop();
               } else {
@@ -81,10 +101,10 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: TextField(
-              autofocus: true,
+              autofocus: widget.edit ? false : true,
               minLines: 1,
               maxLines: 3,
-              maxLength: 250,
+              maxLength: 200,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.name,
@@ -103,7 +123,7 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
                 FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
               ],
               minLines: 1,
-              maxLength: 5,
+              maxLength: 10,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
