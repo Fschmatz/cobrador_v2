@@ -20,8 +20,9 @@ class _HistoryTileState extends State<HistoryTile> {
     return ListTile(
       leading: Icon(
        (widget.cashflow.type.compareTo('loan').isEven)
-          ? Icons.arrow_upward_outlined
-          : Icons.arrow_downward_outlined,
+          ? Icons.upload_outlined
+          : Icons.save_alt_outlined,
+      color: Theme.of(context).colorScheme.secondary,
       size: 20,),
       minLeadingWidth: 20,
       title: Text(widget.cashflow.personName),

@@ -94,16 +94,16 @@ class _HomeState extends State<Home> {
           },
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.arrow_upward_outlined),
+              icon: Icon(Icons.upload_outlined),
               selectedIcon: Icon(
-                Icons.arrow_upward,
+                Icons.upload,
               ),
               label: 'Loans',
             ),
             NavigationDestination(
-              icon: Icon(Icons.arrow_downward_outlined),
+              icon: Icon(Icons.save_alt_outlined),
               selectedIcon: Icon(
-                Icons.arrow_downward,
+                Icons.save_alt_outlined,
               ),
               label: 'Debts',
             ),

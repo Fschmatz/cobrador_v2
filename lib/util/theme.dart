@@ -8,10 +8,10 @@ ThemeData light = ThemeData(
     brightness: Brightness.light,
     primaryColor: const Color(0xFFFFFFFF),
     colorScheme: const ColorScheme.light(
-      primary: Color(0xFF0B57D0),
+      primary: Color(0xFF165ED3),
       onPrimary: Color(0xFFFFFFFF),
       onSecondary: Color(0xFFFFFFFF),
-      secondary: Color(0xFF0B57D0),
+      secondary: Color(0xFF165ED3),
     ),
     appBarTheme: const AppBarTheme(
       surfaceTintColor: Color(0xFFFFFFFF),
@@ -19,16 +19,17 @@ ThemeData light = ThemeData(
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     cardTheme: const CardTheme(
+      surfaceTintColor: Color(0xFFFCFCFF),
       color: Color(0xFFFFFFFF),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        focusColor: const Color(0xFF0B57D0),
+        focusColor: const Color(0xFF165ED3),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF0B57D0),
+            color: Color(0xFF165ED3),
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -80,8 +81,8 @@ ThemeData dark = ThemeData(
       backgroundColor: Color(0xFF1F1F1F),
     ),
     cardTheme: const CardTheme(
-      surfaceTintColor: Color(0xFF282829),
-      color: Color(0xFF282829),
+      surfaceTintColor: Color(0xFF29292A),
+      color: Color(0xFF29292A),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFF1F1F1F),

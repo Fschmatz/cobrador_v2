@@ -14,8 +14,7 @@ class CashflowList extends StatefulWidget {
   _CashflowListState createState() => _CashflowListState();
 }
 
-class _CashflowListState extends State<CashflowList>{
-
+class _CashflowListState extends State<CashflowList> {
   RxList cashflowList = [].obs;
   RxBool loading = true.obs;
 
@@ -35,8 +34,8 @@ class _CashflowListState extends State<CashflowList>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() =>
-        (loading.value)
+      body: Obx(
+        () => (loading.value)
             ? const Center(child: SizedBox.shrink())
             : (cashflowList.isEmpty)
                 ? const Center(
@@ -48,7 +47,11 @@ class _CashflowListState extends State<CashflowList>{
                 : ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
-                        ListView.builder(
+                        ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const SizedBox(
+                            height: 10,
+                          ),
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: cashflowList.length,
@@ -57,7 +60,8 @@ class _CashflowListState extends State<CashflowList>{
                                 Cashflow(personName: '', type: '', value: 0);
 
                             return CashflowCard(
-                                cashflow: cashflow.toCashflow(cashflowList[index]),
+                                cashflow:
+                                    cashflow.toCashflow(cashflowList[index]),
                                 refreshHome: getCashflowList);
                           },
                         ),
@@ -69,9 +73,9 @@ class _CashflowListState extends State<CashflowList>{
       floatingActionButton: FloatingActionButton(
         heroTag: null,
         onPressed: () {
-          Get.to(() =>
-            NewEditCashflow(
-             refreshHome: getCashflowList,
+          Get.to(
+            () => NewEditCashflow(
+              refreshHome: getCashflowList,
               edit: false,
               type: widget.type,
             ),

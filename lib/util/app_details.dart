@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String appVersion = "1.0.1";
+  static String appVersion = "1.0.2";
   static String appName = "Cobrador Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/cobrador_v2";
 
   static String changelogCurrent = '''
-1.0.1
+1.0.2
 - Technically usable
 - Confirm delete
 - Clear history
