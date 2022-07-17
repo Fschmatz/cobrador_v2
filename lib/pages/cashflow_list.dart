@@ -50,7 +50,7 @@ class _CashflowListState extends State<CashflowList> {
                         ListView.separated(
                           separatorBuilder: (BuildContext context, int index) =>
                               const SizedBox(
-                            height: 16,
+                            height: 12,
                           ),
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,

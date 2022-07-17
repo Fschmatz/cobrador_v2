@@ -68,8 +68,8 @@ ThemeData dark = ThemeData(
       titleMedium: TextStyle(fontWeight: FontWeight.w400),
     ),
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF1B1B1F),
-    scaffoldBackgroundColor: const Color(0xFF1B1B1F),
+    primaryColor: const Color(0xFF1D1D1D),
+    scaffoldBackgroundColor: const Color(0xFF1D1D1D),
     colorScheme: const ColorScheme.dark(
       primary: Color(0xFFA4C8FF),
       onPrimary: Color(0xFFC2E7FF),
@@ -77,15 +77,15 @@ ThemeData dark = ThemeData(
       secondary: Color(0xFF6089B2),
     ),
     appBarTheme: const AppBarTheme(
-      surfaceTintColor: Color(0xFF1B1B1F),
-      backgroundColor: Color(0xFF1B1B1F),
+      surfaceTintColor: Color(0xFF1D1D1D),
+      backgroundColor: Color(0xFF1D1D1D),
     ),
     cardTheme: const CardTheme(
-      surfaceTintColor: Color(0xFF29292D),
-      color: Color(0xFF29292D),
+      surfaceTintColor: Color(0xFF29292B),
+      color: Color(0xFF29292B),
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: Color(0xFF1B1B1F),
+      backgroundColor: Color(0xFF1D1D1D),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color(0xFF1B6098),
