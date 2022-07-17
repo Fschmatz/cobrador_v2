@@ -121,7 +121,7 @@ class _CashflowCardState extends State<CashflowCard> {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
-        contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+        contentPadding: const EdgeInsets.fromLTRB(16, 7, 16, 7),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
