@@ -19,8 +19,8 @@ class _HistoryState extends State<History> {
 
   @override
   void initState() {
-    getHistory();
     super.initState();
+    getHistory();
   }
 
   Future<void> getHistory() async {

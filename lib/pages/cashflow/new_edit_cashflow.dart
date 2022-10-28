@@ -26,12 +26,12 @@ class _NewEditCashflowState extends State<NewEditCashflow> {
 
   @override
   void initState() {
+    super.initState();
     if(widget.edit){
       controllerPersonName.text = widget.cashflow!.personName;
       controllerValue.text = widget.cashflow!.value.toStringAsFixed(2);
       controllerNote.text = widget.cashflow!.note!;
     }
-    super.initState();
   }
 
   Future<void> saveCashflow() async {

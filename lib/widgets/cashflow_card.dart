@@ -122,9 +122,6 @@ class _CashflowCardState extends State<CashflowCard> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: ListTile(
         contentPadding: const EdgeInsets.fromLTRB(16, 7, 16, 7),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-        ),
         onTap: openBottomMenu,
         title: Text(widget.cashflow.personName),
         trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),

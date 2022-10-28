@@ -20,8 +20,8 @@ class _CashflowListState extends State<CashflowList> {
 
   @override
   void initState() {
-    getCashflowList();
     super.initState();
+    getCashflowList();
   }
 
   Future<void> getCashflowList() async {

@@ -23,8 +23,8 @@ class _HistoryTileState extends State<HistoryTile> {
           ? Icons.upload_outlined
           : Icons.save_alt_outlined,
       color: Theme.of(context).colorScheme.secondary,
-      size: 20,),
-      minLeadingWidth: 20,
+      size: 22,),
+      minLeadingWidth: 22,
       title: Text(widget.cashflow.personName),
       trailing: Text('\$ ${widget.cashflow.value.toStringAsFixed(2)}'),
       subtitle: Text(widget.cashflow.getFormattedNoteDataAndPaidData(),)
